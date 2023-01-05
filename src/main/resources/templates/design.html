@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/common_head.html :: common-head"></th:block>
+    <title>Design your taco</title>
+</head>
+<body>
+<section class="section">
+    <form method="post" th:object="${taco}">
+        <h1 class="title">Design your taco</h1>
+        <p class="help is-danger" th:errors="*{ingredients}" th:if="${#fields.hasErrors('ingredients')}"></p>
+
+        <div class="box">
+            <h1 class="title is-6">Wrap</h1>
+            <div th:each="ingredient : ${wrap}">
+                <label class="checkbox">
+                    <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}">
+                    <span th:text="${ingredient.name}"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="box">
+            <h1 class="title is-6">Protein</h1>
+            <div th:each="ingredient : ${protein}">
+                <label class="checkbox">
+                    <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}">
+                    <span th:text="${ingredient.name}"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="box">
+            <h1 class="title is-6">Cheese</h1>
+            <div th:each="ingredient : ${cheese}">
+                <label class="checkbox">
+                    <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}">
+                    <span th:text="${ingredient.name}"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="box">
+            <h1 class="title is-6">Veggies</h1>
+            <div th:each="ingredient : ${veggies}">
+                <label class="checkbox">
+                    <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}">
+                    <span th:text="${ingredient.name}"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="box">
+            <h1 class="title is-6">Sauce</h1>
+            <div th:each="ingredient : ${sauce}">
+                <label class="checkbox">
+                    <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}">
+                    <span th:text="${ingredient.name}"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="box">
+            <h1 class="title is-6">Taco name</h1>
+            <div class="field">
+                <p class="control">
+                    <input class="input" type="text" th:field="*{name}">
+                </p>
+                <p class="help is-danger" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p>
+            </div>
+        </div>
+
+        <input class="button" type="submit" value="Submit">
+    </form>
+</section>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/common_head.html :: common-head"></th:block>
+    <title>Your order</title>
+</head>
+<body>
+<section class="section">
+    <h1 class="title">Please your order</h1>
+    <form method="post" th:object="${tacoOrder}">
+
+        <div class="box">
+            <h1 class="title is-6">Your tacos</h1>
+            <div class="content">
+                <ul>
+                    <li th:each="taco : ${tacoOrder.tacos}"><span th:text="${taco.name}"></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="box">
+            <h1 class="title is-6">Deliver to</h1>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="deliveryName">Your name</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input id="deliveryName" class="input" type="text" th:field="*{deliveryName}">
+                        </p>
+                        <p class="help is-danger" th:errors="*{deliveryName}" th:if="${#fields.hasErrors('deliveryName')}"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="deliveryStreet">Street</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input id="deliveryStreet" class="input" type="text" th:field="*{deliveryStreet}">
+                        </p>
+                        <p class="help is-danger" th:errors="*{deliveryStreet}" th:if="${#fields.hasErrors('deliveryStreet')}"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="deliveryCity">City</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input id="deliveryCity" class="input" type="text" th:field="*{deliveryCity}">
+                        </p>
+                        <p class="help is-danger" th:errors="*{deliveryCity}" th:if="${#fields.hasErrors('deliveryCity')}"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="deliveryState">State</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input id="deliveryState" class="input" type="text" th:field="*{deliveryState}">
+                        </p>
+                        <p class="help is-danger" th:errors="*{deliveryState}" th:if="${#fields.hasErrors('deliveryState')}"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="deliveryZip">Zip</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input id="deliveryZip" class="input" type="text" th:field="*{deliveryZip}">
+                        </p>
+                        <p class="help is-danger" th:errors="*{deliveryZip}" th:if="${#fields.hasErrors('deliveryZip')}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <h1 class="title is-6">Payment details</h1>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="ccNumber">Card number</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input id="ccNumber" class="input" type="text" th:field="*{ccNumber}">
+                        </p>
+                        <p class="help is-danger" th:errors="*{ccNumber}" th:if="${#fields.hasErrors('ccNumber')}"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="ccExpiration">Expiration</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input id="ccExpiration" class="input" type="text" th:field="*{ccExpiration}">
+                        </p>
+                        <p class="help is-danger" th:errors="*{ccExpiration}" th:if="${#fields.hasErrors('ccExpiration')}"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="ccCvv">CVV</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input id="ccCvv" class="input" type="text" th:field="*{ccCvv}">
+                        </p>
+                        <p class="help is-danger" th:errors="*{ccCvv}" th:if="${#fields.hasErrors('ccCvv')}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input class="button" type="submit" value="Order">
+    </form>
+</section>
+</body>
+</html>
