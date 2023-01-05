@@ -3,6 +3,7 @@ package dev.dcaraujo.tacocloudspring.controller
 import dev.dcaraujo.tacocloudspring.model.Ingredient
 import dev.dcaraujo.tacocloudspring.model.Taco
 import dev.dcaraujo.tacocloudspring.model.TacoOrder
+import dev.dcaraujo.tacocloudspring.repository.IngredientRepository
 import jakarta.validation.Valid
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
-class DesignController {
+class DesignController(private val ingredientRepository: IngredientRepository) {
     companion object {
         val logger: Logger = LoggerFactory.getLogger(DesignController::class.java)
     }
@@ -33,20 +34,17 @@ class DesignController {
     }
 
     @ModelAttribute(name = "taco")
-    private fun addNewTacoToModel(): Taco {
-        return Taco(null, mutableListOf())
-    }
+    private fun addNewTacoToModel() = Taco()
 
     @ModelAttribute(name = "tacoOrder")
-    private fun addNewOrderToModel(): TacoOrder {
-        return TacoOrder("", "", "", "", "", "", "", "", mutableListOf())
-    }
+    private fun addNewOrderToModel() = TacoOrder()
 
     @ModelAttribute
     private fun addIngredientsToModel(model: Model) {
+        val ingredients = ingredientRepository.findAll()
         Ingredient.Type.values().forEach { type ->
             val name = type.name.lowercase()
-            val ingredient = Ingredient.all.filter { it.type == type }
+            val ingredient = ingredients.filter { it.type == type }
             model.addAttribute(name, ingredient)
         }
     }

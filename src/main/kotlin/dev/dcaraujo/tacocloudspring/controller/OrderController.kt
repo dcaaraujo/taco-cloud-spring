@@ -1,9 +1,8 @@
 package dev.dcaraujo.tacocloudspring.controller
 
 import dev.dcaraujo.tacocloudspring.model.TacoOrder
+import dev.dcaraujo.tacocloudspring.repository.OrderRepository
 import jakarta.validation.Valid
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.*
@@ -12,10 +11,7 @@ import org.springframework.web.bind.support.SessionStatus
 @Controller
 @RequestMapping("/order")
 @SessionAttributes("tacoOrder")
-class OrderController {
-    companion object {
-        val logger: Logger = LoggerFactory.getLogger(OrderController::class.java)
-    }
+class OrderController(private val orderRepository: OrderRepository) {
 
     @GetMapping
     fun index(): String {
@@ -27,7 +23,7 @@ class OrderController {
         if (errors.hasErrors()) {
             return "order"
         }
-        logger.info("Processing order {}", order)
+        orderRepository.save(order)
         session.setComplete()
         return "redirect:/"
     }

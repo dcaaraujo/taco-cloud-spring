@@ -1,14 +1,23 @@
 package dev.dcaraujo.tacocloudspring.model
 
-import jakarta.validation.constraints.NotNull
+import jakarta.persistence.*
 import jakarta.validation.constraints.Size
+import java.util.*
 
-data class Taco(
-    @field:NotNull
+@Entity
+class Taco(
+    @field:Id
+    @field:GeneratedValue(strategy = GenerationType.AUTO)
+    val id: Long,
+
     @field:Size(min = 5, message = "Name must be at least 5 characters")
-    var name: String?,
+    var name: String,
 
-    @field:NotNull
+    @field:ManyToMany
     @field:Size(min = 1, message = "Choose at least 1 ingredient")
-    var ingredients: MutableList<Ingredient>
-)
+    var ingredients: MutableList<Ingredient> = mutableListOf(),
+
+    val createdAt: Date = Date()
+) {
+    constructor() : this(0, "")
+}
