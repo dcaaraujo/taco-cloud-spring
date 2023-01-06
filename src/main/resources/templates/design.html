@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/common_head.html :: common-head"></th:block>
+    <th:block th:insert="~{fragments/common_head.html :: common-head}"></th:block>
     <title>Design your taco</title>
 </head>
 <body>
 <section class="section">
-    <form method="post" th:object="${taco}">
+    <form method="post" th:action="@{/design}" th:object="${taco}">
         <h1 class="title">Design your taco</h1>
         <p class="help is-danger" th:errors="*{ingredients}" th:if="${#fields.hasErrors('ingredients')}"></p>
 

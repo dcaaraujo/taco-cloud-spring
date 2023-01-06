@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/common_head.html :: common-head"></th:block>
+    <th:block th:insert="~{fragments/common_head.html :: common-head}"></th:block>
     <title>Your order</title>
 </head>
 <body>
 <section class="section">
     <h1 class="title">Please your order</h1>
-    <form method="post" th:object="${tacoOrder}">
+    <form method="post" th:action="@{/order}" th:object="${tacoOrder}">
 
         <div class="box">
             <h1 class="title is-6">Your tacos</h1>
