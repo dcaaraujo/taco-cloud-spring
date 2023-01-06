@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector
 
 @Configuration
 class SecurityConfiguration {
@@ -28,10 +30,19 @@ class SecurityConfiguration {
     }
 
     @Bean
-    fun filterChain(http: HttpSecurity): SecurityFilterChain {
+    fun filterChain(http: HttpSecurity, introspector: HandlerMappingIntrospector): SecurityFilterChain {
+        val mvcMatcher = MvcRequestMatcher.Builder(introspector)
         http
             .authorizeHttpRequests { authorize ->
-                authorize.anyRequest().permitAll()
+                authorize
+                    .requestMatchers(mvcMatcher.pattern("/design"), mvcMatcher.pattern("/order")).hasRole("USER")
+                    .anyRequest().permitAll()
+            }
+            .formLogin {
+                it.loginPage("/login").defaultSuccessUrl("/design", true)
+            }
+            .logout {
+                it.logoutSuccessUrl("/")
             }
             .csrf {
                 it.ignoringRequestMatchers(toH2Console())
