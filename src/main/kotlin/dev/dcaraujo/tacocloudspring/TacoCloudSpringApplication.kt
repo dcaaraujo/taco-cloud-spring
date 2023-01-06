@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class TacoCloudSpringApplication
 
 fun main(args: Array<String>) {
-	runApplication<TacoCloudSpringApplication>(*args)
+    runApplication<TacoCloudSpringApplication>(*args)
 }
